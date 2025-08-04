@@ -4,7 +4,7 @@ body {
   background-image: url("/pattern.svg");
   background-repeat: no-repeat;
   background-position: bottom left;
-  background-color: var(--surface-0);
+  background-color: var(--surface-ground);
   color: var(--text-color);
 }
 

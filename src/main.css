@@ -4,8 +4,8 @@ body {
   background-image: url("/pattern.svg");
   background-repeat: no-repeat;
   background-position: bottom left;
-  background-color: #eeeeee;
-  color: #777777;
+  background-color: var(--surface-0);
+  color: var(--text-color);
 }
 
 #root {

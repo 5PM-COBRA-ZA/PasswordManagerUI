@@ -1,8 +1,14 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import './main.css'
+import {PrimeReactProvider} from "primereact/api";
+import {RouterProvider} from "react-router";
+import {router} from "./routes/routes.tsx";
+import 'primereact/resources/themes/bootstrap4-dark-blue/theme.css';
+import 'primeflex/primeflex.css';
 
 createRoot(document.getElementById('root')!).render(
-    <App />
+    <PrimeReactProvider>
+        <RouterProvider router={router} />
+    </PrimeReactProvider>
   ,
 )

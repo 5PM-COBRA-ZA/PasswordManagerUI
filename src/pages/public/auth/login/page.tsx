@@ -1,4 +1,4 @@
-import viteLogo from '/vite.svg';
+import logo from '/logo.svg';
 import './page.css';
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import "primeflex/primeflex.css";
@@ -10,8 +10,8 @@ const LoginPage = () => {
     return (
         <div className={'creds-card'}>
             <div className={'creds-logo'}>
-                <a href="https://vite.dev" target="_blank">
-                    <img height={75} src={viteLogo} className="logo" alt="Vite logo"/>
+                <a href="/" target="_blank">
+                    <img height={55} src={logo} className="logo" alt="Vite logo"/>
                 </a>
             </div>
             <div>

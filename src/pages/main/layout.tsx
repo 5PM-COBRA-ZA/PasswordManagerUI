@@ -3,6 +3,7 @@ import {Outlet, useNavigate} from "react-router";
 import logo from '/logo.svg';
 import './layout.css';
 import {Menu} from "primereact/menu";
+import {Menubar} from "primereact/menubar";
 
 const Layout = () => {
     const navigate = useNavigate();
@@ -68,11 +69,17 @@ const Layout = () => {
     ]
 
     return(
-        <div className={'flex'} style={{height: '100%'}}>
-            <nav className={'flex flex-column justify-content-between p-5'}>
+        <div className={'flex layout'} style={{height: '100%'}}>
+            {/*Desktop Navigation*/}
+            <nav className={'flex-column justify-content-between p-5'}>
                 <Menu model={ITEMS} className={'p-0 w-full'} style={{border: 'none'}} />
                 <Menu model={BOTTOM_ITEMS} className={'p-0 w-full'} style={{border: 'none'}} />
             </nav>
+
+            {/*Mobile Navigation*/}
+            <div className={'mobile-nav'}>
+                <Menubar model={[...ITEMS, ...BOTTOM_ITEMS]} className={'w-full'} />
+            </div>
 
             {/*children*/}
 

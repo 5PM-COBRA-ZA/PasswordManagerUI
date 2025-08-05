@@ -2,4 +2,28 @@ nav {
     background: var(--surface-card);
     width: 20rem;
     height: 100%;
+    display: flex;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+.layout {
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+        width: 100%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .layout {
+        flex-direction: column;
+    }
 }

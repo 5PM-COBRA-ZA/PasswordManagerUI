@@ -1,0 +1,17 @@
+.filter {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.pagination {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+#sticky-header-table thead {
+    position: sticky;
+    top: 71.2px;
+    z-index: 1;
+}

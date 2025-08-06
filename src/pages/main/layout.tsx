@@ -23,10 +23,14 @@ const Layout = () => {
         },
         {
             label: 'Manage',
+            expanded: true,
             items: [
                 {
                     label: 'Passwords',
                     icon: 'pi pi-key',
+                    command: () => {
+                        navigate('/dashboard/passwords');
+                    }
                 },
                 {
                     label: 'Groups',
@@ -69,7 +73,7 @@ const Layout = () => {
     ]
 
     return(
-        <div className={'flex layout'} style={{height: '100%'}}>
+        <div className={'flex layout'}>
             {/*Desktop Navigation*/}
             <nav className={'flex-column justify-content-between p-5'}>
                 <Menu model={ITEMS} className={'p-0 w-full'} style={{border: 'none'}} />
@@ -78,13 +82,17 @@ const Layout = () => {
 
             {/*Mobile Navigation*/}
             <div className={'mobile-nav'}>
-                <Menubar model={[...ITEMS, ...BOTTOM_ITEMS]} className={'w-full'} />
+                <Menubar model={[...ITEMS.slice(1), ...BOTTOM_ITEMS]} className={'w-full'} />
             </div>
 
             {/*children*/}
-
-            <div className={'p-5'}>
-                <Outlet/>
+            <div className={'w-full flex flex-column gap-5'}>
+                <div className={'px-5 pt-5 flex flex-column gap-5'}>
+                    <Outlet/>
+                </div>
+                <footer className={'p-1 flex justify-content-center'}>
+                    <p>© JPass. All rights reserved. Since 2025.</p>
+                </footer>
             </div>
         </div>
     );

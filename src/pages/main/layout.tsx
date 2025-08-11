@@ -87,7 +87,7 @@ const Layout = () => {
 
             {/*children*/}
             <div className={'w-full flex flex-column gap-5'}>
-                <div className={'px-5 pt-5 flex flex-column gap-5'}>
+                <div className={'px-5 pt-5 flex flex-column gap-5 flex-1'}>
                     <Outlet/>
                 </div>
                 <footer className={'p-1 flex justify-content-center'}>

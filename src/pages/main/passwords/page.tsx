@@ -55,8 +55,8 @@ const PasswordsPage = () => {
                 pt={{wrapper: {style: {overflow: 'visible'}}}}
                 value={items}
             >
-                <Column headerStyle={{width: '33.34%'}} field="website" header="Website"></Column>
-                <Column headerStyle={{width: '33.33%'}} field="username" header="Username"></Column>
+                <Column sortable headerStyle={{width: '33.34%'}} field="website" header="Website"></Column>
+                <Column sortable headerStyle={{width: '33.33%'}} field="username" header="Username"></Column>
                 <Column headerStyle={{width: '33.33%'}} field="password" header="Password"></Column>
             </DataTable>
 

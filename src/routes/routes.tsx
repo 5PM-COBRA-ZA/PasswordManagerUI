@@ -7,39 +7,41 @@ import DashboardPage from "../pages/main/dashboard/page.tsx";
 import PasswordsPage from "../pages/main/passwords/page.tsx";
 import RegisterPage from "../pages/public/auth/register/page.tsx";
 import Layout from "../pages/main/layout.tsx";
+import MainLayout from "../pages/layout.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
+        Component: MainLayout,
         children: [
             {
                 index: true,
-                element: <LandingPage />,
+                Component: LandingPage,
             },
             {
                 path: "auth",
                 children: [
                     {
                         path: "login",
-                        element: <LoginPage />
+                        Component: LoginPage
                     },
                     {
                         path: "register",
-                        element: <RegisterPage />
+                        Component: RegisterPage
                     },
                 ],
             },
             {
                 path: "dashboard",
-                element: <Layout />,
+                Component: Layout,
                 children: [
                     {
                         index: true,
-                        element: <DashboardPage />
+                        Component: DashboardPage
                     },
                     {
                         path: "passwords",
-                        element: <PasswordsPage />
+                        Component: PasswordsPage
                     }
                 ],
             },

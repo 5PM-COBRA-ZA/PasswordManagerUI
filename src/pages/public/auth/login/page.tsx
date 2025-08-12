@@ -1,13 +1,11 @@
-import logo from '/logo.svg';
 import './page.css';
-import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import "primeflex/primeflex.css";
 import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {NavLink, useNavigate} from "react-router";
 import {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
 import {type Store, use_store} from "../../../../store/store.tsx";
-import AuthService from "../auth-service.tsx";
+import AuthService from "../auth-service.ts";
 
 const service = new AuthService();
 
@@ -15,6 +13,8 @@ const CONSTANTS = {
     username: 'username',
     password: 'password'
 }
+
+const logo_size = '55px';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -66,9 +66,9 @@ const LoginPage = () => {
     return (
         <form className={'creds-card'} onSubmit={submit_handler}>
             <div className={'creds-logo'}>
-                <a href="/" target="_blank">
-                    <img height={55} src={logo} className="logo" alt="JPass Logo"/>
-                </a>
+                <svg height={logo_size} className={'logo_svg'}>
+                    <use height={logo_size} xlinkHref="/logo.svg#logo_svg"></use>
+                </svg>
             </div>
             <div>
                 <h1>Login</h1>
@@ -77,7 +77,7 @@ const LoginPage = () => {
                 <label>Email</label>
                 <InputText
                     name={CONSTANTS.username}
-                    className={'w-full'}
+                    className={`w-full ${errors?.has(CONSTANTS.username) && 'p-invalid'}`}
                     onChange={username_on_change}
                     value={username}
                 />
@@ -93,7 +93,7 @@ const LoginPage = () => {
                 <InputText
                     name={CONSTANTS.password}
                     type={'password'}
-                    className={'w-full'}
+                    className={`w-full ${errors?.has(CONSTANTS.password) && 'p-invalid'}`}
                     onChange={password_on_change}
                     value={password}
                 />

@@ -9,6 +9,9 @@ export interface Store {
     set_profile: (profile: Profile) => void,
     messages: Message[],
     set_messages: (messages: Message[]) => void,
+    logout: () => void,
+    theme: string,
+    toggle_theme: () => void,
 }
 
 export const use_store: UseBoundStore<StoreApi<Store>> = create((set): Store => ({
@@ -30,4 +33,13 @@ export const use_store: UseBoundStore<StoreApi<Store>> = create((set): Store => 
     set_profile: (profile: Profile) => set({ profile: profile }),
     messages: [],
     set_messages: (messages: Message[]) => set({ messages: messages }),
+    logout: () => set({ profile: undefined }),
+    theme: 'dark',
+    toggle_theme: () => {
+        set((prev: Store) => {
+            return({
+                theme: prev.theme == 'dark' ? 'light' : 'dark'
+            });
+        })
+    }
 }))

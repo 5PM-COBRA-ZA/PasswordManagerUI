@@ -1,14 +1,14 @@
 import {Toast} from "primereact/toast";
 import {Outlet} from "react-router";
 import {useEffect, useRef} from "react";
-import {use_store} from "../store/store.tsx";
+import {type Store, use_store} from "../store/store.tsx";
 import type {Message} from "./models.tsx";
 import LoadingOverlay from "../components/misc/loading-overlay.tsx";
 
 const MainLayout = () => {
     const toast = useRef(null);
-    const messages = use_store((state: any) => state.messages);
-    const is_loading = use_store((state: any) => state.is_loading);
+    const messages = use_store((state: Store) => state.messages);
+    const is_loading = use_store((state: Store) => state.is_loading);
 
     useEffect(() => {
         if(messages && Array.isArray(messages) && messages.length > 0){

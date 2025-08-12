@@ -1,10 +1,15 @@
 import Logger, {type EventReport, report_event} from "../utilities/logger.ts";
+import {PARAMS} from "../constants/query-params.ts";
 
 class Service {
     baseUrl = '/api';//FIXME: read from env
 
     get_base_url(): string {
         throw new Error('You have to implement the method get_base_url!');
+    }
+
+    get_params(){
+        return PARAMS;
     }
 
     basicRequest(

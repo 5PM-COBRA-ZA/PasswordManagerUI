@@ -14,3 +14,14 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.card {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-card);
+  padding: var(--content-padding);
+}
+
+svg.logo_svg {
+  --color: var(--primary-color);
+}

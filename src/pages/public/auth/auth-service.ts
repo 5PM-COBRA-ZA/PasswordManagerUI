@@ -23,6 +23,19 @@ class AuthService extends Service{
             on_errors
         )
     }
+
+    get_profile(
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+    ){
+        this.get(
+            `${this.get_base_url()}/profile`,
+            on_success,
+            on_failed,
+            set_loading,
+        )
+    }
 }
 
 export default AuthService;

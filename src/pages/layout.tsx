@@ -1,5 +1,5 @@
 import {Toast} from "primereact/toast";
-import {Outlet, useNavigate} from "react-router";
+import {Outlet, useLocation, useNavigate} from "react-router";
 import {useEffect, useRef} from "react";
 import {type Store, use_store} from "../store/store.tsx";
 import type {Message} from "./models.tsx";
@@ -17,9 +17,10 @@ const MainLayout = () => {
     const set_messages = use_store((state: Store) => state.set_messages);
     const set_loading = use_store((state: Store) => state.set_loading);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        if(!profile?.id){
+        if(location.pathname != '/auth/login' && !profile?.id){
             service.get_profile(
                 (response: any) => {
                     if(response?.user?.id){

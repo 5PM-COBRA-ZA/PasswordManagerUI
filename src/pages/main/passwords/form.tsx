@@ -3,10 +3,12 @@ import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import type {Password} from "./model.ts";
 import {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
+import PasswordsService from "./service.ts";
+import {type Store, use_store} from "../../../store/store.tsx";
 
 interface PasswordFormProps {
     password?: Password,
-    on_close: () => void
+    on_close: (refresh: boolean) => void
 }
 
 const CONSTANTS = {
@@ -15,12 +17,17 @@ const CONSTANTS = {
     password: 'password',
 }
 
+const service = new PasswordsService();
+
 const PasswordForm = (props: PasswordFormProps) => {
     const [submitting, set_submitting] = useState<boolean>(false);
     const [website, set_website] = useState<string>('');
     const [username, set_username] = useState<string>('');
     const [password, set_password] = useState<string>('');
     const [errors, set_errors]  = useState<Map<string, string[]>>(new Map());
+
+    const set_messages = use_store((state: Store) => state.set_messages);
+    const set_loading = use_store((state: Store) => state.set_loading);
 
     useEffect(() => {
         if(props.password){
@@ -38,10 +45,32 @@ const PasswordForm = (props: PasswordFormProps) => {
             dto.append(CONSTANTS.username, username);
             dto.append(CONSTANTS.password, password);
 
-            //add/update user then close modal
-            set_errors(new Map())
+            if(props.password){
+                service.update_password(
+                    props.password.id,
+                    dto,
+                    (response: any) => {
+                        set_messages(response?.detail?.messages);
+                        props.on_close(true);
+                    },
+                    set_messages,
+                    set_loading,
+                    set_errors
+                )
+            }else{
+                service.add_password(
+                    dto,
+                    (response: any) => {
+                        set_messages(response?.detail?.messages);
+                        props.on_close(true);
+                    },
+                    set_messages,
+                    set_loading,
+                    set_errors
+                )
+            }
         }
-    }, [submitting, website, username, password]);
+    }, [submitting, website, username, password, props.password]);
 
     const submit_handler = (e: FormEvent) => {
         e.preventDefault();
@@ -62,6 +91,8 @@ const PasswordForm = (props: PasswordFormProps) => {
                 }
                 <Button
                     label={'Submit'}
+                    type={'submit'}
+                    onClick={() => set_submitting(true)}
                 />
             </div>
         );
@@ -89,7 +120,7 @@ const PasswordForm = (props: PasswordFormProps) => {
             header={_header}
             visible={true}
             style={{ width: '50vw' }}
-            onHide={props.on_close}
+            onHide={() => props.on_close(false)}
             footer={_footer}>
             <form className={'flex flex-column'} onSubmit={submit_handler}>
                 <div className="field">
@@ -129,6 +160,7 @@ const PasswordForm = (props: PasswordFormProps) => {
                         name={CONSTANTS.password}
                         value={password}
                         onChange={password_change_handler}
+                        type={'password'}
                     />
                     {errors?.has(CONSTANTS.password) &&
                         <div className={'flex justify-content-start'}>
@@ -137,6 +169,7 @@ const PasswordForm = (props: PasswordFormProps) => {
                         </div>
                     }
                 </div>
+                <input style={{display: 'none'}} type={'submit'} />
             </form>
         </Dialog>
     );

@@ -20,6 +20,7 @@ import {IconField} from "primereact/iconfield";
 const service = new PasswordsService();
 
 const PasswordsPage = () => {
+    const [refresh_counter, set_refresh_counter] = useState<number>(0);
     const [action, set_action] = useState<string | undefined>();
     const profile: Profile | undefined = use_store((state: Store) => state.profile);
     const set_messages = use_store((state: Store) => state.set_messages);
@@ -66,7 +67,8 @@ const PasswordsPage = () => {
         },
         response_entry_key: 'password',
         response_entries_key: 'passwords',
-        row_id: 'id'
+        row_id: 'id',
+        extra_change_to_watch: refresh_counter
     });
 
     useEffect(() => {
@@ -95,6 +97,14 @@ const PasswordsPage = () => {
         />
     )
 
+    const password_template = (data: Password) => {
+        return(
+            <div>
+                {data.password}
+            </div>
+        );
+    }
+
     return(
         <>
             <Toolbar start={start_content} end={end_content} pt={{root: {style: {background: 'var(--surface-card)'}}}} />
@@ -116,7 +126,7 @@ const PasswordsPage = () => {
             >
                 <Column sortable headerStyle={{width: '33.34%'}} field="website" header="Website"></Column>
                 <Column sortable headerStyle={{width: '33.33%'}} field="username" header="Username"></Column>
-                <Column headerStyle={{width: '33.33%'}} field="password" header="Password"></Column>
+                <Column headerStyle={{width: '33.33%'}} body={password_template} field="password" header="Password"></Column>
             </DataTable>
 
             <div className="card">
@@ -132,8 +142,10 @@ const PasswordsPage = () => {
             {[ACTIONS.edit, ACTIONS.add, ACTIONS.view].includes(action ?? '') &&
                 <PasswordForm
                     password={entry}
-                    on_close={() => {
+                    on_close={(refresh: boolean) => {
                         on_hide_view([ACTIONS.edit, ACTIONS.add, ACTIONS.view]);
+                        if(refresh)
+                            set_refresh_counter((prev: number) => prev + 1);
                     }}
                 />
             }

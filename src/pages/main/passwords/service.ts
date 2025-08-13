@@ -45,6 +45,43 @@ class PasswordsService extends Service {
             set_loading,
         )
     }
+
+    add_password(
+        dto: FormData,
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+        on_errors: (response: any) => void,
+    ){
+        this.post(
+            `${this.get_base_url()}`,
+            on_success,
+            on_failed,
+            set_loading,
+            dto,
+            false,
+            on_errors
+        )
+    }
+
+    update_password(
+        id: number,
+        dto: FormData,
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+        on_errors: (response: any) => void,
+    ){
+        this.put(
+            `${this.get_base_url()}/${id}`,
+            on_success,
+            on_failed,
+            set_loading,
+            dto,
+            false,
+            on_errors
+        )
+    }
 }
 
 export default PasswordsService;

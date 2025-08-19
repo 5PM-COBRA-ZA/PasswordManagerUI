@@ -16,6 +16,7 @@ import useLocalSettings from "../../../hooks/useLocalSettings.ts";
 import {Toolbar} from "primereact/toolbar";
 import {InputIcon} from "primereact/inputicon";
 import {IconField} from "primereact/iconfield";
+import PasswordToggle from "./components/password-toggle.tsx";
 
 const service = new PasswordsService();
 
@@ -90,7 +91,6 @@ const PasswordsPage = () => {
     const end_content = (
         <Button
             icon="pi pi-plus"
-            outlined
             onClick={() => {
                 on_add();
             }}
@@ -99,9 +99,7 @@ const PasswordsPage = () => {
 
     const password_template = (data: Password) => {
         return(
-            <div>
-                {data.password}
-            </div>
+            <PasswordToggle password={data.password} />
         );
     }
 

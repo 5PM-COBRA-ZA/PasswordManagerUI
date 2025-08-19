@@ -52,7 +52,7 @@ class Service {
             if(response.status === 401){
                 //try and refresh token before redirecting to login page
                 this.basicRequest(
-                    `${this.baseUrl}/auth/refresh`,
+                    `/auth/refresh`,
                     {
                         method: "GET"
                     },
@@ -216,9 +216,6 @@ class Service {
             {
                 method: "PATCH",
                 body: isRequestJson ? JSON.stringify(dto) : dto,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             },
             onSuccess,
             onFailed,

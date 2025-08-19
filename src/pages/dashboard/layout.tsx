@@ -44,10 +44,6 @@ const Layout = () => {
                         navigate('/dashboard/passwords');
                     }
                 },
-                {
-                    label: 'Groups',
-                    icon: 'pi pi-folder',
-                },
             ]
         },
         {
@@ -59,18 +55,13 @@ const Layout = () => {
                 {
                     label: 'Settings',
                     icon: 'pi pi-cog',
+                    command: () => {
+                        navigate('/dashboard/profile/settings');
+                    }
                 },
                 {
                     label: 'Messages',
                     icon: 'pi pi-inbox',
-                },
-                {
-                    label: 'Subscriptions',
-                    icon: 'pi pi-cart-plus',
-                },
-                {
-                    label: 'Billing',
-                    icon: 'pi pi-credit-card',
                 },
             ]
         },

@@ -75,3 +75,17 @@ export const format_display_date = (start_date: string, start_time: string, end_
 
     return `${date} ${format_time(end_time)}`
 }
+
+export const append_form_data = (dto: FormData, key: string, value: string) => {
+    if(!dto)
+        dto = new FormData();
+
+    if(!key || key.trim().length <= 0)
+        throw new Error('Key cannot be null or empty.');
+
+    if(!value || value.trim().length <= 0)
+        return dto;
+
+    dto.append(key, value);
+    return dto;
+}

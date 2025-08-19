@@ -1,4 +1,4 @@
-import './page.css';
+import '../page.css';
 import "primeflex/primeflex.css";
 import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
@@ -6,6 +6,7 @@ import {NavLink, useNavigate} from "react-router";
 import {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
 import {type Store, use_store} from "../../../../store/store.tsx";
 import AuthService from "../auth-service.ts";
+import {append_form_data} from "../../../../utilities/utilities.ts";
 
 const service = new AuthService();
 
@@ -31,8 +32,8 @@ const LoginPage = () => {
             set_submitting(false);
 
             const dto = new FormData();
-            dto.append(CONSTANTS.username, username);
-            dto.append(CONSTANTS.password, password);
+            append_form_data(dto, CONSTANTS.username, username);
+            append_form_data(dto, CONSTANTS.password, password);
             service.login(
                 dto,
                 (response: any) => {
@@ -80,6 +81,7 @@ const LoginPage = () => {
                     className={`w-full ${errors?.has(CONSTANTS.username) && 'p-invalid'}`}
                     onChange={username_on_change}
                     value={username}
+                    required
                 />
                 {errors?.has(CONSTANTS.username) &&
                     <div className={'flex justify-content-start'}>
@@ -96,6 +98,7 @@ const LoginPage = () => {
                     className={`w-full ${errors?.has(CONSTANTS.password) && 'p-invalid'}`}
                     onChange={password_on_change}
                     value={password}
+                    required
                 />
                 {errors?.has(CONSTANTS.password) &&
                     <div className={'flex justify-content-start'}>

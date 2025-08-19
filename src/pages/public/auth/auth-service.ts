@@ -23,6 +23,55 @@ class AuthService extends Service{
             on_errors
         )
     }
+
+    register(
+        dto: FormData,
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+        on_errors: (response: any) => void
+    ){
+        this.post(
+            `${this.get_base_url()}/register`,
+            on_success,
+            on_failed,
+            set_loading,
+            dto,
+            false,
+            on_errors
+        )
+    }
+
+    update_profile(
+        dto: FormData,
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+        on_errors: (response: any) => void
+    ){
+        this.patch(
+            `${this.get_base_url()}/profile`,
+            on_success,
+            on_failed,
+            set_loading,
+            dto,
+            false,
+            on_errors
+        )
+    }
+
+    get_profile(
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+    ){
+        this.get(
+            `${this.get_base_url()}/profile`,
+            on_success,
+            on_failed,
+            set_loading,
+        )
+    }
 }
 
 export default AuthService;

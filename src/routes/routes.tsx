@@ -3,11 +3,12 @@ import {
 } from "react-router";
 import LoginPage from "../pages/public/auth/login/page.tsx";
 import LandingPage from "../pages/public/page.tsx";
-import DashboardPage from "../pages/main/dashboard/page.tsx";
-import PasswordsPage from "../pages/main/passwords/page.tsx";
+import DashboardLandingPage from "../pages/dashboard/landing/page.tsx";
+import PasswordsPage from "../pages/dashboard/passwords/page.tsx";
 import RegisterPage from "../pages/public/auth/register/page.tsx";
-import Layout from "../pages/main/layout.tsx";
+import Layout from "../pages/dashboard/layout.tsx";
 import MainLayout from "../pages/layout.tsx";
+import UserSettingsPage from "../pages/dashboard/settings/page.tsx";
 
 const router = createBrowserRouter([
     {
@@ -37,11 +38,20 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        Component: DashboardPage
+                        Component: DashboardLandingPage
                     },
                     {
                         path: "passwords",
                         Component: PasswordsPage
+                    },
+                    {
+                        path: "profile",
+                        children: [
+                            {
+                                path: "settings",
+                                Component: UserSettingsPage
+                            }
+                        ]
                     }
                 ],
             },

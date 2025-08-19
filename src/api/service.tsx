@@ -18,7 +18,7 @@ class Service {
         onSuccess: (response: any) => void,
         onFailed: (response: any) => void,
         setIsLoading: (response: boolean) => void,
-        onErrors?: (response: any) => void,
+        onErrors?: (response: any) => void
     ){
         const startTime = Date.now()
         const reportData: EventReport = {
@@ -50,8 +50,29 @@ class Service {
 
             //token expired/invalid redirect to login
             if(response.status === 401){
-                document.cookie = "cashiers_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-                location.replace('/login')
+                //try and refresh token before redirecting to login page
+                this.basicRequest(
+                    `/auth/refresh`,
+                    {
+                        method: "GET"
+                    },
+                    () => {
+                        this.basicRequest(
+                            url,
+                            options,
+                            onSuccess,
+                            onFailed,
+                            setIsLoading,
+                            onErrors
+                        )
+                    },
+                    () => {
+                        document.cookie = "jwt_token=; refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+                        location.replace('/auth/login')
+                    },
+                    setIsLoading,
+                    () => {}
+                )
             }
 
             let message = 'Please try again later.'
@@ -195,9 +216,6 @@ class Service {
             {
                 method: "PATCH",
                 body: isRequestJson ? JSON.stringify(dto) : dto,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             },
             onSuccess,
             onFailed,

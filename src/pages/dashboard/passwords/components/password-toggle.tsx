@@ -49,7 +49,7 @@ const PasswordToggle = (props: PasswordToggleProps) => {
                         }
                     }}
                     text
-                    style={{width: '40px', color: 'var(--text-color)'}}
+                    style={{width: '40px', color: 'inherit'}}
                 />
                 <Button
                     className={`pi pi-eye${!masked ? '-slash' : ''}`}
@@ -59,7 +59,7 @@ const PasswordToggle = (props: PasswordToggleProps) => {
                         set_masked((prev: boolean) => !prev);
                     }}
                     text
-                    style={{width: '40px', color: 'var(--text-color)'}}
+                    style={{width: '40px', color: 'inherit'}}
                 />
             </div>
         </div>

@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: passwordmanagerui
+  namespace: password-manager
+  labels:
+    app: passwordmanagerui
+spec:
+  ports:
+    - protocol: TCP
+      port: 8182
+      targetPort: 80
+  selector:
+    app: passwordmanagerui
+  type: LoadBalancer

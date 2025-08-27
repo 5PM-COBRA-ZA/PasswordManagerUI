@@ -15,7 +15,6 @@ const Layout = () => {
     const navigate = useNavigate();
     const theme = use_store((state: Store) => state.theme);
     const toggle_theme = use_store((state: Store) => state.toggle_theme);
-    const logout = use_store((state: Store) => state.logout);
     const set_messages = use_store((state: Store) => state.set_messages);
     const set_loading = use_store((state: Store) => state.set_loading);
 

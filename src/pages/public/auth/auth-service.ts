@@ -72,6 +72,19 @@ class AuthService extends Service{
             set_loading,
         )
     }
+
+    logout(
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+    ){
+        this.get(
+            `${this.get_base_url()}/logout`,
+            on_success,
+            on_failed,
+            set_loading,
+        )
+    }
 }
 
 export default AuthService;

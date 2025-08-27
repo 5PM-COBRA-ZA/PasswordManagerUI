@@ -7,11 +7,17 @@ import {type Store, use_store} from "../../store/store.tsx";
 import {useContext} from "react";
 import {PrimeReactContext} from "primereact/api";
 import Logger from "../../utilities/logger.ts";
+import AuthService from "../public/auth/auth-service.ts";
+
+const service = new AuthService();
 
 const Layout = () => {
     const navigate = useNavigate();
     const theme = use_store((state: Store) => state.theme);
     const toggle_theme = use_store((state: Store) => state.toggle_theme);
+    const logout = use_store((state: Store) => state.logout);
+    const set_messages = use_store((state: Store) => state.set_messages);
+    const set_loading = use_store((state: Store) => state.set_loading);
 
     const { changeTheme } = useContext(PrimeReactContext);
 
@@ -84,7 +90,15 @@ const Layout = () => {
         {
             label: 'Logout',
             icon: 'pi pi-sign-out',
-            command: () => navigate('/')
+            command: () => {
+                service.logout(
+                    () => {
+                        navigate('/');
+                    },
+                    set_messages,
+                    set_loading
+                )
+            }
         }
     ]
 

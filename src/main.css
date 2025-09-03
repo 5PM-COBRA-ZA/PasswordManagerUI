@@ -25,3 +25,9 @@ body {
 svg.logo_svg {
   --color: var(--primary-color);
 }
+
+.jp-nav-item {
+  color: var(--text-color);
+  cursor: pointer;
+  text-decoration: none;
+}

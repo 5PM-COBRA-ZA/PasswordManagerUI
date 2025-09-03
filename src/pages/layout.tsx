@@ -20,7 +20,7 @@ const MainLayout = () => {
     const location = useLocation();
 
     useEffect(() => {
-        if(location.pathname != '/auth/login' && !profile?.id){
+        if(location.pathname != '/' && location.pathname != '/auth/login' && !profile?.id){
             service.get_profile(
                 (response: any) => {
                     if(response?.user?.id){

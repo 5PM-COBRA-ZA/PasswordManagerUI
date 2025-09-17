@@ -1,1 +1,15 @@
+h1 {
+    font-size: 4.5rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 4.5rem;
+    text-align: center;
+}
 
+.jp-landing-container {
+    max-width: 50rem;;
+}
+
+.jp-h-full {
+    min-height: calc(100vh - 1rem - 2rem - 16px - 3rem);
+}

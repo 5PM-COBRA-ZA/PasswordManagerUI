@@ -31,3 +31,8 @@ svg.logo_svg {
   cursor: pointer;
   text-decoration: none;
 }
+
+.container {
+  padding-left: 12rem;
+  padding-right: 12rem;
+}

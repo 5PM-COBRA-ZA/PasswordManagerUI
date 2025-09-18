@@ -1,4 +1,4 @@
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {Menubar} from "primereact/menubar";
 
 import './page.css';
@@ -8,6 +8,7 @@ import InfoItem from "./components/InfoItem";
 const logo_size = 35;
 
 const LandingPage = () => {
+    const navigate = useNavigate();
 
     const left_items = (
         <div>
@@ -22,7 +23,7 @@ const LandingPage = () => {
     const right_items = (
         <div className={'flex gap-1'}>
             <Link className={'jp-nav-item'} to={'/auth/login'}>Login</Link>&nbsp;|&nbsp;
-            <Link className={'jp-nav-item'} to={'/auth/login'}>Register</Link>
+            <Link className={'jp-nav-item'} to={'/auth/register'}>Register</Link>
         </div>
     )
 
@@ -43,8 +44,8 @@ const LandingPage = () => {
                         <h1>Saving your <span style={{color: 'var(--primary-color)'}}>passwords</span> and your sanity</h1>
                         <p>One app to safely manage all your logins</p>
                         <div className="flex gap-3">
-                            <Button label="Sign Up" />
-                            <Button outlined label="Login" />
+                            <Button onClick={() => navigate('/auth/register')} label="Sign Up" />
+                            <Button onClick={() => navigate('/auth/login')} outlined label="Login" />
                         </div>
                     </div>
                 </div>

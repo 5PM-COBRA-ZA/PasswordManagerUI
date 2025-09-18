@@ -76,9 +76,6 @@ const RegisterPage = () => {
                     <use height={logo_size} xlinkHref="/logo.svg#logo_svg"></use>
                 </svg>
             </div>
-            <div>
-                <h1>Register</h1>
-            </div>
             <div className={'field'}>
                 <label>Email</label>
                 <InputText

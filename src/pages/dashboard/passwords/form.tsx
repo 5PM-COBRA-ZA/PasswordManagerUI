@@ -9,7 +9,8 @@ import {append_form_data} from "../../../utilities/utilities.ts";
 
 interface PasswordFormProps {
     password?: Password,
-    on_close: (refresh: boolean) => void
+    on_close: (refresh: boolean) => void,
+    on_delete: () => void
 }
 
 const CONSTANTS = {
@@ -84,6 +85,7 @@ const PasswordForm = (props: PasswordFormProps) => {
             <div className={'flex justify-content-between align-items-center'}>
                 {props.password ?
                     <Button
+                        onClick={props.on_delete}
                         icon={'pi pi-trash px-2'}
                         outlined
                         tooltip={'Remove'}

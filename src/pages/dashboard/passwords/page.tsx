@@ -17,6 +17,7 @@ import {Toolbar} from "primereact/toolbar";
 import {InputIcon} from "primereact/inputicon";
 import {IconField} from "primereact/iconfield";
 import PasswordToggle from "./components/password-toggle.tsx";
+import ConfirmationPopup from "../../../components/misc/confirmation-popup.tsx";
 
 const service = new PasswordsService();
 
@@ -43,9 +44,22 @@ const PasswordsPage = () => {
         search_handler,
         search_term,
         on_add,
-        on_hide_view
+        on_hide_view,
+        on_confirm_delete,
+        on_cancel_delete,
+        on_delete
     } = useDataTable<Password>({
-        remove: () =>  {},
+        remove: (id, onSuccess, onFailed, onLoading) =>  {
+            service.remove_password(
+                id,
+                (response: any) => {
+                    onSuccess(response);
+                    set_refresh_counter((prev: number) => prev + 1)
+                },
+                onFailed,
+                onLoading
+            )
+        },
         get_entry: (id, onSuccess, onFailed, onLoading) => {
             service.get_password(
                 id,
@@ -145,7 +159,17 @@ const PasswordsPage = () => {
                         if(refresh)
                             set_refresh_counter((prev: number) => prev + 1);
                     }}
+                    on_delete={on_delete}
                 />
+            }
+
+            {/*Delete*/}
+            {(entry && [ACTIONS.remove].includes(action ?? '')) &&
+                <ConfirmationPopup
+                    on_confirm={on_confirm_delete}
+                    on_cancel={() => on_cancel_delete(ACTIONS.edit)}
+                    message={'Are you sure you want to proceed?'}
+                    header={`Remove ${entry?.website}`} />
             }
         </>
     );

@@ -82,6 +82,20 @@ class PasswordsService extends Service {
             on_errors
         )
     }
+
+    remove_password(
+        id: string,
+        on_success: (response: any) => void,
+        on_failed: (response: any) => void,
+        set_loading: (loading: boolean) => void,
+    ){
+        this.delete(
+            `${this.get_base_url()}/${id}`,
+            on_success,
+            on_failed,
+            set_loading,
+        )
+    }
 }
 
 export default PasswordsService;

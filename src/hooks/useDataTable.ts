@@ -134,7 +134,7 @@ const useDataTable = <T> (props: UseDataTableProps) => {
     useEffect(() => {
         const {action} = has_param(VIEW_KEY) ? get_id_action_tab(get_param(VIEW_KEY) ?? ` ${PARAM_DELIMITER} `) : {action: ''};
 
-        if(action == ACTIONS.add || action == ACTIONS.edit || action == ACTIONS.view)
+        if(action == ACTIONS.add || action == ACTIONS.edit || action == ACTIONS.view || action == ACTIONS.remove)
             return;
 
         set_entry(undefined);
@@ -279,33 +279,35 @@ const useDataTable = <T> (props: UseDataTableProps) => {
     }
 
     const on_delete = () => {
-        // const parts = query_params?.get(PARAMS.id)?.split('-');
-        // if(!parts) return;
-        // const id = parts[0];
-        // query_params.set(PARAMS.id, `${id}-${ACTIONS.remove}`)
-        // set_query_params(query_params);
+        const parts = get_param(VIEW_KEY)?.split(PARAM_DELIMITER);
+        if(!parts) return;
+        const id = parts[0];
+        set_param(VIEW_KEY, `${id}${PARAM_DELIMITER}${ACTIONS.remove}`)
+        update_params();
     }
 
     const on_confirm_delete = () => {
-        // props.remove(
-        //     query_params.get(PAGES.REMOVE),
-        //     response => {
-        //         context.add_messages(response.messages);
-        //         const params = new URLSearchParams(query_params.toString());
-        //         params.delete(PAGES.VIEW);
-        //         params.delete(PAGES.REMOVE);
-        //         router(path_name + `?${params.toString()}`, {scroll: false});
-        //     },
-        //     context.add_messages,
-        //     context.set_loading
-        // )
+        const parts = get_param(VIEW_KEY)?.split(PARAM_DELIMITER);
+        if(!parts) return;
+        const id = parts[0];
+        props.remove(
+            id,
+            response => {
+                set_messages(response.detail.messages);
+                delete_param(VIEW_KEY);
+                update_params();
+            },
+            set_messages,
+            set_is_loading
+        )
     }
 
-    const on_cancel_delete = () => {
-        // const params = new URLSearchParams(query_params.toString());
-        // params.set(PAGES.VIEW, params.get(PAGES.REMOVE));
-        // params.delete(PAGES.REMOVE);
-        // router(path_name + `?${params.toString()}`, {scroll: false});
+    const on_cancel_delete = (go_to_action: string) => {
+        const parts = get_param(VIEW_KEY)?.split(PARAM_DELIMITER);
+        if(!parts) return;
+        const id = parts[0];
+        set_param(VIEW_KEY, `${id}${PARAM_DELIMITER}${go_to_action}`)
+        update_params();
     }
 
     const clear_entries = () => {

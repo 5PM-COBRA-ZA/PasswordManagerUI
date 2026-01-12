@@ -11,7 +11,8 @@ export const PARAMS = {
 export const ACTIONS = {
     view: 'view',
     edit: 'edit',
-    add: 'add'
+    add: 'add',
+    remove: 'remove'
 }
 
 export const settings_key = (user_id: number) => `jpass_settings_${user_id}`;
